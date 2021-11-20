@@ -202,7 +202,6 @@ const cantidadProductos = async (req = request, res = response) => {
             }
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             message: 'Error al obtener datos.'
@@ -222,7 +221,6 @@ const obtener = async (req = request, res = response) => {
             }
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             message: 'Error al obtener datos.'
@@ -239,9 +237,7 @@ const actualizarEstado = async (req = request, res = response) => {
     const motivo_subsanacion = req.body.motivo_subsanacion;
     try {
         const producto = await Product.findById(id);
-        console.log(producto)
         const usuario =  await User.findById(producto.user);
-        console.log(usuario)
         if (producto)
             if (!producto) {
                 return res.status(404).json({

@@ -96,6 +96,7 @@ const uploadPhotoProduct = async(req = request, res = response) => {
         })
         photos.forEach(async(photo) => {
             let pathName = `./src/upload/product/${photo.name}`;
+            /*
             photo.mv(pathName, (err) => {
                 if (err) {
                     return res.status(500).json({
@@ -104,6 +105,20 @@ const uploadPhotoProduct = async(req = request, res = response) => {
                     })
                 }
             })
+            */
+            if (fs.existsSync(pathName)) {
+                fs.unlinkSync(pathName)
+            }
+
+           fs.writeFile(pathName, photo.data, err => {
+                if (err) {
+                    return res.status(500).json({
+                        ok: false,
+                        error
+                    })
+                }
+            });
+
             await cloudinary.uploader.upload(pathName, (error, result) => {
                 if (error) {
                     return res.status(500).json({
