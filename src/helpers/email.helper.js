@@ -14,7 +14,7 @@ const sendEmail = async(emails, asunto, texto) => {
             },
         });
         let info = await transporter.sendMail({
-            from: "Fred Foo 👻", // sender address
+            from: 'SUBASTON <no-reply@subaston.com>', // sender address
             to: emails.toString(), // list of receivers
             subject: asunto, // Subject line
             text: texto // plain text body
