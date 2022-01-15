@@ -78,6 +78,10 @@ const UserSchema = Schema({
     studies: {
         type: String,
         required: false
+    },
+    observation: {
+        type: String,
+        required: false
     }
 
 });

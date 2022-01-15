@@ -22,9 +22,29 @@ const listar = async(req = request, res = response) => {
     }
 }
 
+const listarInhabilitados = async(req = request, res = response) => {
+    try {
+        await User.find({ role: "CLIENT_ROLE", state:false }, function(err, cliente) {
+            if (!err) {
+                return res.status(200).json({
+                    ok: true,
+                    user: cliente
+                })
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            message: 'Error al obtener datos.'
+        })
+    }
+}
+
 const eliminar = async(req = request, res = response) => {
     const id = req.body.id;
     const state = req.body.state;
+    const motivo = req.body.motivo;
     try {
         const cliente = await User.findById(id);
         if (cliente)
@@ -34,7 +54,7 @@ const eliminar = async(req = request, res = response) => {
                     message: 'Cliente no existe.'
                 })
             } else {
-                await User.findByIdAndUpdate(id, { state: state }, { new: true }, function(err, cliente_actualizado) {
+                await User.findByIdAndUpdate(id, { state: state, observation: motivo }, { new: true }, function(err, cliente_actualizado) {
                     if (!err) {
                         return res.status(200).json({
                             ok: true,
@@ -106,4 +126,4 @@ const obtenerCalificacionVendedor = async(req = request, res = response) => {
 }
 
 
-module.exports = { listar, eliminar, cantidadClientes, obtenerCalificacionVendedor };
+module.exports = { listar, eliminar, cantidadClientes, obtenerCalificacionVendedor, listarInhabilitados };
