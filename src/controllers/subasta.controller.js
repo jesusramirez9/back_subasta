@@ -165,7 +165,7 @@ const pujarSubasta = async(req = request, res = response) => {
                 }
             }
 
-            socket.io.emit(subastaFinal._id, { puja: puja, user: userWin, pujas: pujasArray, mensaje: 'proceso', tipo: subastaFinal.tipo, precioTemp: precioTemporal })
+            socket.io.emit(subastaFinal._id, { puja: puja, user: userWin, pujas: pujasArray, mensaje: 'proceso', tipo: subastaFinal.tipo, precioTemp: precioTemporal, subasta: subastaFinal })
             return res.status(200).json({
                 ok: true,
                 data: subastaFinal
